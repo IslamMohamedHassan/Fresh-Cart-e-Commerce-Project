@@ -1,0 +1,17 @@
+
+footer{
+    background-color:#0aad0a;
+}
+ li{
+    list-style: none;
+   
+}
+.sort{
+    width: 100px;
+    margin-left: 20px;
+}
+.payment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
