@@ -15,6 +15,7 @@ export default function SpecificBrandProducts() {
       if (!brandItems) {
         getAllCategories(id)
       }
+        // eslint-disable-next-line
     }, [])
     
 

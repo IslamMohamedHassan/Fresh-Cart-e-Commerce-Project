@@ -12,8 +12,12 @@ import Cart from './component/Cart/Cart'
 import { Toaster } from 'react-hot-toast'
 import Checkout from './component/Checkout/Checkout'
 import Orders from './component/Orders/Orders'
-import Categories from './component/Categories/Categories'
 import SpecificBrandProducts from './component/Brands/specificBrandProducts'
+import Wishlist from './component/wishlist/wishlist'
+import ForgetPassword from './component/forgotPassword/ForgetPassword'
+import RestCode from './component/forgotPassword/RestCode'
+import ResetPassword from './component/forgotPassword/ResetPassword'
+import { HelmetProvider } from 'react-helmet-async'
 
 
 
@@ -42,9 +46,12 @@ export default function App() {
       {path:"cart",element:<ProtectedRoute><Cart/></ProtectedRoute>},
       {path:"brands",element:<Brands/>},
       {path:"specificBrands/:id",element:<SpecificBrandProducts/>},
-      {path:"categories",element:<Categories/>},
       {path:"payment",element:<Checkout/>},
-      {path:"allorders",element:<Orders/>},
+      {path:"allOrders",element:<Orders/>},
+      {path:"wishlist",element:<Wishlist/>},
+      {path:"forget-password",element:<ForgetPassword/>},
+      {path:"reset-code",element:<RestCode/>},
+      {path:"reset-password",element:<ResetPassword/>},
       {path:"details/:id",element:<ProtectedRoute><ProductDetails/></ProtectedRoute>},
       {path:"*",element: <div className='text-center py-5'><img  src={errorImg} alt="Error"/></div>}
     ]}
@@ -52,8 +59,10 @@ export default function App() {
 
   return (
     <>
+    <HelmetProvider>
       <Toaster/>
       <RouterProvider router={router}/>
+    </HelmetProvider>
     </>
  
   )

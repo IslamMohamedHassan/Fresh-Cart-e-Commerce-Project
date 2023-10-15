@@ -13,13 +13,12 @@ export default function CategorySlider() {
     if (!categoriesInfo) {
       handleGetAllCategories()
     }
-  }, [])
+  })
   
 
   async function handleGetAllCategories() {
     const res = await getAllCategories();
     if (res?.status === 200) {
-      console.log(res.status);
       setCategoriesInfo(res.data.data)
     }else{
 
@@ -38,7 +37,7 @@ export default function CategorySlider() {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 3,
         },
       },
       {

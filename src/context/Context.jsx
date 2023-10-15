@@ -27,7 +27,7 @@ export default function Context(props) {
   useEffect(()=>{
     if(tknInfo == null && localStorage.getItem("tkn")){
       setTknInfo(jwtDecode(localStorage.getItem("tkn")));
-      setIsLogin(true); 
+      setIsLogin(true);
     }
   },[tknInfo])
 
@@ -43,18 +43,19 @@ export default function Context(props) {
 /////////////////////////////// Cart /////////////////////////////
 
     useEffect(()=>{
-      getCart()
-    },[])
+      if (cartId || numOfCart) { 
+        getCart()
+      }
+    })
     // fun to get cartINFO AND SHARE IT
 
     async function getCart() {
       let res = await getCartItems();
-      console.log(res?.data?.status === "success");
-      if (res?.data?.status === "success") {
+      if (res?.data?.status === "success"){
         setCartId(res.data.data._id)
         setNumOfCart(res.data.numOfCartItems)
       }else{
-        
+        setNumOfCart(null)
       }
     }
 
@@ -92,7 +93,34 @@ export default function Context(props) {
     .catch((err)=>err)
   }
 
+
   ///////////////////////////////End Cart///////////////////////////////////////
+
+  // ////////////////////////////wishlist//////////////////////////////////////
+
+   // Function To Get wishlist Items
+   function getWishlistItems() {
+    return axios.get(`https://route-ecommerce.onrender.com/api/v1/wishlist`,
+    {headers:{ token :localStorage.getItem("tkn")}})
+    .then((res)=> res)
+    .catch((err)=> err)
+}
+
+
+// Add To wishlist Func
+function addToWishlist(id) {
+  return axios.post(`https://route-ecommerce.onrender.com/api/v1/wishlist`,{"productId": id},{headers : {"token" : localStorage.getItem("tkn")}})
+  .then((res)=>res)
+  .catch((err)=>err)
+}
+
+// Remove From Cart 
+function removeFromWishlist(id){
+  return axios.delete(`https://route-ecommerce.onrender.com/api/v1/wishlist/${id}`,
+  {headers : {"token" : localStorage.getItem("tkn")}})
+  .then((res)=>res)
+  .catch((err)=>err)
+}
 
   // ////////////////////////// Categories & brand //////////////////////
 
@@ -131,6 +159,13 @@ export default function Context(props) {
     cartId,
     numOfCart,
     setNumOfCart,
+    getCart,
+
+    // wishlist
+    getWishlistItems,
+    addToWishlist,
+    removeFromWishlist,
+    
 
     // Categories
     getAllCategories,

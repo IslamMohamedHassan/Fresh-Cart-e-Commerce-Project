@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import LoadingScreen from "../LoadingScreen/loadingScreen";
 import { projectContext } from "../../context/Context";
 import toast from "react-hot-toast";
+import { Helmet } from 'react-helmet-async';
 
 
 export default function ProductDetails() {
@@ -29,17 +30,13 @@ function getSpecificProduct() {
     axios.get(`https://route-ecommerce.onrender.com/api/v1/products/${id}`).then(res =>{
     const {data} = res.data;
     setProduct(data)
-    console.log(data);
-    }).then(err=>{
-    console.log(err);
-    })
+    }).then(err=>err)
 }
 
   //add to cart func
   async function handleAddToCart(id) {
     const {data} = await addToCart(id);
     if (data.status === "success") {
-      console.log(data);
       setNumOfCart(data.numOfCartItems)
       toast.success("The product has been added successfully")
     }else {
@@ -49,7 +46,9 @@ function getSpecificProduct() {
 
   return (
     <>
-
+      <Helmet>
+        <title>Product Details</title>
+      </Helmet>
     {(product)?   
     <div className="container my-3">
       <div className="row align-items-center justify-content-between">

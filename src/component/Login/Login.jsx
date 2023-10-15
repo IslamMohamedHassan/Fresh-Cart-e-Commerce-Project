@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useFormik } from 'formik'
 import React, {  useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { projectContext } from '../../context/Context';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 export default function Login () {
 
@@ -10,7 +12,7 @@ export default function Login () {
   const navigate = useNavigate();
   const [loginMsg,setLoginMsg] = useState();
   const [spinner, setSpinner] = useState(false);
-  const {setIsLogin} = useContext(projectContext);
+  const {setIsLogin,getCart} = useContext(projectContext);
 
   
   // sign in data 
@@ -28,11 +30,12 @@ export default function Login () {
       axios.post("https://route-ecommerce.onrender.com/api/v1/auth/signin",values).then((res) => {
         let {data} = res;
         localStorage.setItem("tkn",data.token)
-        console.log(data);
         if (data.message === "success") {
+          getCart()
           setIsLogin(true)
           navigate("/home")
           setSpinner(false)
+          toast.success("logged in successfully")
         }
       })
       .catch(function (error) {
@@ -54,9 +57,12 @@ export default function Login () {
 
   return (
     <>
+      <Helmet>
+          <title>Login</title>
+      </Helmet>
       <div className='container'>
 
-        <h2 className='mt-3'>Login</h2>
+        <h2 className='text-main fw-bold my-3'>Login</h2>
 
         {(loginMsg)? <div className='alert alert-danger'>{loginMsg}</div>:""}
 
@@ -70,8 +76,8 @@ export default function Login () {
           <input onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password} id='password' className='form-control' placeholder='password' type="password" />
           {(formik.errors.password && formik.touched.password) ? <div className='alert-danger alert my-2'>{formik.errors.password}</div> : "" }
 
-          <button type='submit' className='btn btn-outline-success p-2 mt-3'>{spinner? <i className='fa-solid fa-spinner fa-spin'/>:"Login"}</button>
-
+          <button type='submit' className='btn d-block btn-outline-success p-2 my-3 fw-bold'>{spinner? <i className='fa-solid fa-spinner fa-spin'/>:"Login"}</button>
+          <Link to = "/forget-password" className='text-main mb-3 d-inline-block fw-bold'>Forgotten password?</Link>
         </form>
 
       </div>

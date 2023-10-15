@@ -4,6 +4,7 @@ import React, { useContext} from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/freshcart-logo.svg"
 import { projectContext } from "../../context/Context";
+import toast from "react-hot-toast";
 
 export default function Nav({isLogin}) {
 
@@ -13,11 +14,12 @@ export default function Nav({isLogin}) {
   // invoke logOut func to clear token and change state
    function handleLogout() {
     logOut();
+    toast.success("Logged Out successfully")
    }
   return (
     <>
-      <nav className="navbar navbar-expand-sm navbar-light bg-light py-3">
-        <div className="container-fluid">
+      <nav className="navbar fw-bold navbar-expand-sm navbar-light z-3 bg-white py-3 position-fixed top-0 start-0 end-0">
+        <div className="container">
           <Link
             className="navbar-brand"
             to="/home">
@@ -58,26 +60,26 @@ export default function Nav({isLogin}) {
 
             {isLogin?
             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active border-end ms-2"
+                  to="/wishlist"
+                  aria-current="page">
+                    <i className="text-danger fa-beat  fas fa-heart fa-lg"/> <span className="visually-hidden">(current)</span>
+                </Link>
+              </li>
                 <li className="nav-item position-relative">
                 <Link
                   className="nav-link active"
                   to="/cart"
-                  aria-current="page"><i className="fas fa-shopping-cart fa-2xl"/>
+                  aria-current="page"><i className="fas fa-shopping-cart fa-xl"/>
                   <span className="badge bg-danger position-absolute top-0 end-0">{numOfCart}</span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link
-                  className="nav-link active"
-                  to="/register"
-                  aria-current="page">
-                  Profile <span className="visually-hidden">(current)</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  to="/allorders"
+                  className="nav-link active border-end border-start ms-2"
+                  to="/allOrders"
                   aria-current="page">
                   Orders
                 </Link>
@@ -114,6 +116,7 @@ export default function Nav({isLogin}) {
           </div>
         </div>
       </nav>
+      <div className="mb-5 pb-4"></div>
     </>
   );
 }

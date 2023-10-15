@@ -2,6 +2,8 @@ import { useFormik } from 'formik'
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 
 // function to avoid redundancy & make all of fields required
@@ -78,6 +80,7 @@ export default function Register() {
           setSpinner(false);
           setRegisterMsg(data.message)
           navigate("/login")
+          toast.success("Registered Successfully")
         }
 
       }).catch(function (error) {
@@ -97,9 +100,12 @@ export default function Register() {
 
   return (
     <>
+    <Helmet>
+        <title>Register</title>
+    </Helmet>
     <div className='container'>
 
-        <h2 className='mt-3'>Registration Form</h2>
+        <h2 className='text-main fw-bold my-3'>Registration Form</h2>
 
         {(registerMsg)? <div className='alert alert-danger'>{registerMsg}</div>:""}
 

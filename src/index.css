@@ -74,22 +74,22 @@ a , a:hover{
     color: #fff;
   }
   .pagination > li > a{
-    border: 1px solid var(--main-color); ;
+    border: 1px solid var(--main-color);
     padding: 15px;
     margin:  5px 7px;
     outline: none;
     font-weight: 900;
     cursor: pointer;
     display: block;
+    border-radius: 10px;
   }
   .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     background-color: var(--main-color); ;
-    border-color: var(--main-color);;
+    border-color: var(--main-color);
+    color: white !important;
     outline: none ;
   }
   .pagination > li > a, .pagination > li > span{
-    color: var(--main-color);
-  }
-  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
-    border-radius: unset
+    color: var(--main-color) !important;
+    border-radius: 10px;
   }
