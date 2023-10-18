@@ -44,9 +44,7 @@ export default function Home() {
         const { data } = res.data;
         setProduct(data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => err)
   }
 
   //add to cart func

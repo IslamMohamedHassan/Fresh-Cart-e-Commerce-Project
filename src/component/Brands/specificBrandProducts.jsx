@@ -29,7 +29,6 @@ export default function SpecificBrandProducts() {
         })
         .catch((err)=> err)
     }
-    console.log(brandItems);
     return <>
     {brandItems?
     <div className='container'>

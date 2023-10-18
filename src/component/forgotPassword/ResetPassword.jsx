@@ -40,14 +40,12 @@ export default function ResetPassword() {
         onSubmit: function (values) {
             axios.put("https://route-ecommerce.onrender.com/api/v1/auth/resetPassword", values)
                 .then((res) => {
-                    console.log(res);
                     if (res?.status === 200) {
                         toast.success("Password Changed Successfully");
                         navigate("/login");
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
                     if ((err?.response?.data?.statusMsg === 'fail')) {
                         return toast.error(err?.response?.data?.message);
                     } else {

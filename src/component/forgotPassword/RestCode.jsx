@@ -32,14 +32,11 @@ export default function RestCode() {
         },
         onSubmit:function (values) {
             axios.post("https://route-ecommerce.onrender.com/api/v1/auth/verifyResetCode",values).then((res) => {
-            // let {data} = res;
-            console.log(res);
             if (res?.data?.status === 'Success') {
                 toast.success("Success Enter Your Email and New Password");
                 navigate("/reset-password")
             }
         }).catch((err)=>{
-            console.log(err.response.data.statusMsg);
             if ((err?.response?.data?.statusMsg === 'fail')) {
                 return toast.error(err?.response.data.message)
             }else{

@@ -22,14 +22,11 @@ export default function Cart() {
     // get all Cart items
     async function showCartItems() {
         let {data} = await getCartItems()
-        console.log(data);
         if (data?.status === "success") {
-            console.log(data.data.products);
             setCartItems(data.data.products);
             setNumOfCart(data.numOfCartItems)
             setCartInfo(data.data)
         }else{
-          console.log(data);
           setCartInfo("empty")
           setNumOfCart(null);
           setCartItems(["Cart is Empty"]);
@@ -40,7 +37,6 @@ export default function Cart() {
     async function handleUpdateQuantity(id,count) {
         let {data} = await updateQuantity(id,count)
         if (data.status === "success") {
-            console.log(data.data);
             setCartItems(data.data.products);
             setCartInfo(data.data)
             toast.success("The number of products has been successfully modified")
@@ -51,9 +47,7 @@ export default function Cart() {
     // remove Cart item 
     async function handleRemoveFromCart(id) {
         let {data} = await removeFromCart(id);
-        console.log(data);
         if (data.status === "success") {
-            console.log(data.data);
             setCartItems(data.data.products);
             setCartInfo(data.data)
             setNumOfCart(data.numOfCartItems)
