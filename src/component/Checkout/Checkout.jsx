@@ -19,7 +19,7 @@ export default function Checkout() {
     initialValues:checkoutInfo,
     onSubmit:function (values) {
         console.log(values);
-        return axios.post(`https://route-ecommerce.onrender.com/api/v1/orders/checkout-session/${cartId}?url=https://fresh-cart-e-commerce-project.vercel.app/allOrders`,
+        return axios.post(`https://route-ecommerce.onrender.com/api/v1/orders/checkout-session/${cartId}?url=https://fresh-cart-e-commerce-project.vercel.app/`,
         {shippingAddress:values},
         {headers:{token : localStorage.getItem("tkn") }},
         ).then((res)=>{
